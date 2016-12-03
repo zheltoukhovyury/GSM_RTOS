@@ -82,6 +82,8 @@
 
 
 #include <stdlib.h>
+#include "stm32f4xx_iwdg.h"
+#include "stm32f4xx_gpio.h"
 
 /* Scheduler include files. */
 #include "FreeRTOS.h"
@@ -92,8 +94,6 @@
 #include "flash.h"
 
 #define ledSTACK_SIZE		configMINIMAL_STACK_SIZE
-#define ledNUMBER_OF_LEDS	( 3 )
-#define ledFLASH_RATE_BASE	( ( TickType_t ) 333 )
 
 /* Variable used by the created tasks to calculate the LED number to use, and
 the rate at which they should flash the LED. */
@@ -102,60 +102,53 @@ static volatile UBaseType_t uxFlashTaskNumber = 0;
 /* The task that is created three times. */
 static portTASK_FUNCTION_PROTO( vLEDFlashTask, pvParameters );
 
+static portTASK_FUNCTION_PROTO( testTask, pvParameters );
+
 /*-----------------------------------------------------------*/
 
 void vStartLEDFlashTasks( UBaseType_t uxPriority )
 {
-BaseType_t xLEDTask;
-
-	/* Create the three tasks. */
-	for( xLEDTask = 0; xLEDTask < ledNUMBER_OF_LEDS; ++xLEDTask )
-	{
-		/* Spawn the task. */
-		xTaskCreate( vLEDFlashTask, "LEDx", ledSTACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
-	}
+  xTaskCreate( vLEDFlashTask, "LEDx", ledSTACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
+  xTaskCreate( testTask, "test", ledSTACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
+  
 }
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION( vLEDFlashTask, pvParameters )
 {
-TickType_t xFlashRate, xLastFlashTime;
-UBaseType_t uxLED;
-
-	/* The parameters are not used. */
-	( void ) pvParameters;
-
-	/* Calculate the LED and flash rate. */
-	portENTER_CRITICAL();
-	{
-		/* See which of the eight LED's we should use. */
-		uxLED = uxFlashTaskNumber;
-
-		/* Update so the next task uses the next LED. */
-		uxFlashTaskNumber++;
-	}
-	portEXIT_CRITICAL();
-
-	xFlashRate = ledFLASH_RATE_BASE + ( ledFLASH_RATE_BASE * ( TickType_t ) uxLED );
-	xFlashRate /= portTICK_PERIOD_MS;
-
-	/* We will turn the LED on and off again in the delay period, so each
-	delay is only half the total period. */
-	xFlashRate /= ( TickType_t ) 2;
-
-	/* We need to initialise xLastFlashTime prior to the first call to 
-	vTaskDelayUntil(). */
-	xLastFlashTime = xTaskGetTickCount();
-
+  int i;
 	for(;;)
 	{
-		/* Delay for half the flash period then turn the LED on. */
-		vTaskDelayUntil( &xLastFlashTime, xFlashRate );
-		vParTestToggleLED( uxLED );
-
-		/* Delay for half the flash period then turn the LED off. */
-		vTaskDelayUntil( &xLastFlashTime, xFlashRate );
-		vParTestToggleLED( uxLED );
+          i++;
+          IWDG_ReloadCounter();
 	}
 } /*lint !e715 !e818 !e830 Function definition must be standard for task creation. */
+
+
+static portTASK_FUNCTION( testTask, pvParameters )
+{
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+  
+
+  GPIO_InitTypeDef initStruct;
+  
+  initStruct.GPIO_Mode = GPIO_Mode_OUT;
+  initStruct.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14;
+  initStruct.GPIO_OType = GPIO_OType_PP;
+  initStruct.GPIO_Speed = GPIO_Speed_100MHz;
+  initStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_Init(GPIOD, &initStruct);
+  
+  initStruct.GPIO_Mode = GPIO_Mode_IN;
+  initStruct.GPIO_Pin = GPIO_Pin_6;
+  initStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_Init(GPIOG, &initStruct);
+  
+  
+  
+  while(1)
+  {
+    GPIO_SetBits(GPIOD, GPIO_Pin_13 | GPIO_Pin_14);
+  }
+}
 

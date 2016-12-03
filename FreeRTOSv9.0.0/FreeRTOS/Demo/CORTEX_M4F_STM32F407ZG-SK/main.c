@@ -264,6 +264,8 @@ volatile unsigned long ulButtonPressCounts = 0UL;
 
 int main(void)
 {
+  
+  
 	/* Configure the hardware ready to run the test. */
 	prvSetupHardware();
 
@@ -316,13 +318,7 @@ static void prvSetupHardware( void )
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
 
-	/* Setup the LED outputs. */
-	vParTestInitialise();
 
-	/* Configure the button input.  This configures the interrupt to use the
-	lowest interrupt priority, so it is ok to use the ISR safe FreeRTOS API
-	from the button interrupt handler. */
-	STM_EVAL_PBInit( BUTTON_USER, BUTTON_MODE_EXTI );
 }
 /*-----------------------------------------------------------*/
 

@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1849351883
+Checksum=469094437
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -107,10 +107,9 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
-[Log file]
+[TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-Category=_ 0
 [DriverProfiling]
 Enabled=0
 Mode=3
@@ -121,19 +120,19 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\Source\tasks.c}.1143.30" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\flash.c}.144.2" 0 0 1 "" 0 "" 0
-Bp2=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\integer.c}.140.3" 0 0 1 "" 0 "" 0
-Bp3=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\integer.c}.119.1" 0 0 1 "" 0 "" 0
-Bp4=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\sp_flop.c}.112.1" 0 0 1 "" 0 "" 0
-Bp5=_ 1 "EMUL_CODE" "{$PROJ_DIR$\board\iar_stm32f407zg_sk.c}.114.1" 0 0 1 "" 0 "" 0
-Count=6
+Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\integer.c}.140.3" 0 0 1 "" 0 "" 0
+Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\integer.c}.119.1" 0 0 1 "" 0 "" 0
+Bp2=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\sp_flop.c}.112.1" 0 0 1 "" 0 "" 0
+Bp3=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\flash.c}.155.1" 0 0 1 "" 0 "" 0
+Bp4=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Common\Minimal\flash.c}.152.1" 0 0 1 "" 0 "" 0
+Count=5
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Aliases]
 Count=0
 SuppressDialog=0
