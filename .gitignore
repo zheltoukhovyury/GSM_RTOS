@@ -2,6 +2,9 @@
 Thumbs.db
 ehthumbs.db
 
+*.o
+Flash Debug/
+
 # Folder config file
 Desktop.ini
 
