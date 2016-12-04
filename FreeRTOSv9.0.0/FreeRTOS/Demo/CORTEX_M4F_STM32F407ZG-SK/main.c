@@ -265,6 +265,10 @@ volatile unsigned long ulButtonPressCounts = 0UL;
 int main(void)
 {
   
+    StartTick();
+    StartComport();
+    while(1)
+       IWDG_ReloadCounter();
   
 	/* Configure the hardware ready to run the test. */
 	prvSetupHardware();
@@ -316,7 +320,7 @@ static void prvSetupHardware( void )
 	SystemInit();
 
 	/* Ensure all priority bits are assigned as preemption priority bits. */
-	NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+	//NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
 
 
 }
@@ -350,100 +354,6 @@ void vApplicationTickHook( void )
 }
 /*-----------------------------------------------------------*/
 
-static void prvSetupNestedFPUInterruptsTest( void )
-{
-NVIC_InitTypeDef NVIC_InitStructure;
-
-	/* Enable the TIM2 interrupt in the NVIC.  The timer itself is not used,
-	just its interrupt vector to force nesting from software.  TIM2 must have
-	a lower priority than TIM3, and both must have priorities above
-	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
-	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY - 1;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init( &NVIC_InitStructure );
-
-	/* Enable the TIM3 interrupt in the NVIC.  The timer itself is not used,
-	just its interrupt vector to force nesting from software.  TIM2 must have
-	a lower priority than TIM3, and both must have priorities above
-	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
-	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY - 2;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init( &NVIC_InitStructure );
-}
-/*-----------------------------------------------------------*/
-
-void TIM3_IRQHandler( void )
-{
-	/* Just to verify that the interrupt nesting behaves as expected, increment
-	ulFPUInterruptNesting on entry, and decrement it on exit. */
-	ulFPUInterruptNesting++;
-
-	/* This is the highest priority interrupt in the chain of forced nesting
-	interrupts, so latch the maximum value reached by ulFPUInterruptNesting.
-	This is done purely to allow verification that the nesting depth reaches
-	that intended. */
-	if( ulFPUInterruptNesting > ulMaxFPUInterruptNesting )
-	{
-		ulMaxFPUInterruptNesting = ulFPUInterruptNesting;
-	}
-
-	/* Fill the FPU registers with 99 to overwrite the values written by
-	TIM2_IRQHandler(). */
-	vRegTestClearFlopRegistersToParameterValue( 99UL );
-
-	ulFPUInterruptNesting--;
-}
-/*-----------------------------------------------------------*/
-
-void TIM2_IRQHandler( void )
-{
-	/* Just to verify that the interrupt nesting behaves as expected, increment
-	ulFPUInterruptNesting on entry, and decrement it on exit. */
-	ulFPUInterruptNesting++;
-
-	/* Fill the FPU registers with 1. */
-	vRegTestClearFlopRegistersToParameterValue( 1UL );
-
-	/* Trigger a timer 3 interrupt, which will fill the registers with a
-	different value. */
-	NVIC_SetPendingIRQ( TIM3_IRQn );
-
-	/* Ensure that, after returning from the nesting interrupt, all the FPU
-	registers contain the value to which they were set by this interrupt
-	function. */
-	configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 1UL ) );
-
-	ulFPUInterruptNesting--;
-}
-/*-----------------------------------------------------------*/
-
-
-void EXTI9_5_IRQHandler(void)
-{
-long lHigherPriorityTaskWoken = pdFALSE;
-
-	/* Only line 6 is enabled, so there is no need to test which line generated
-	the interrupt. */
-	EXTI_ClearITPendingBit( EXTI_Line6 );
-
-	/* This interrupt does nothing more than demonstrate how to synchronise a
-	task with an interrupt.  First the handler releases a semaphore.
-	lHigherPriorityTaskWoken has been initialised to zero. */
-	xSemaphoreGiveFromISR( xTestSemaphore, &lHigherPriorityTaskWoken );
-
-	/* If there was a task that was blocked on the semaphore, and giving the
-	semaphore caused the task to unblock, and the unblocked task has a priority
-	higher than the currently executing task (the task that this interrupt
-	interrupted), then lHigherPriorityTaskWoken will have been set to pdTRUE.
-	Passing pdTRUE into the following macro call will cause this interrupt to
-	return directly to the unblocked, higher priority, task. */
-	portEND_SWITCHING_ISR( lHigherPriorityTaskWoken );
-}
-/*-----------------------------------------------------------*/
 
 void vApplicationMallocFailedHook( void )
 {

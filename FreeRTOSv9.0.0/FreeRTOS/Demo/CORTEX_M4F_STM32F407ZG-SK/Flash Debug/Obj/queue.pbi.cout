@@ -1,20 +1,20 @@
-"D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Source\queue.c"
+"E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Source\queue.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\board
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\board
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\CMSIS\Device\ST\STM32F4xx\Include
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\CMSIS\Device\ST\STM32F4xx\Include
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\STM32F4xx_StdPeriph_Driver\inc
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\STM32F4xx_StdPeriph_Driver\inc
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\..\..\Source\include
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\..\..\Source\include
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\..\..\Source\portable\IAR\ARM_CM4F
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\..\..\Source\portable\IAR\ARM_CM4F
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\..\Common\include
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\..\Common\include
 -I
 D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include
 -I
@@ -22,19 +22,19 @@ D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\inc
 -I
 D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\inc\c
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\board
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\board
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\CMSIS\Device\ST\STM32F4xx\Include
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\CMSIS\Device\ST\STM32F4xx\Include
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\STM32F4xx_StdPeriph_Driver\inc
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\CORTEX_M4F_STM32F407ZG-SK\Libraries\STM32F4xx_StdPeriph_Driver\inc
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Source\include
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Source\include
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Source\portable\IAR\ARM_CM4F
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Source\portable\IAR\ARM_CM4F
 -I
-D:\freeRtos\FreeRTOSv9.0.0\FreeRTOS\Demo\Common\include
+E:\Git_Rep\GSM_RTOS\FreeRTOSv9.0.0\FreeRTOS\Demo\Common\include
 -I
 D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include
 -DUSE_STDPERIPH_DRIVER=1

@@ -1112,6 +1112,9 @@
     <name>$PROJ_DIR$\GSMToSTMPort.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\GSMToSTMPort.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\main.c</name>
   </file>
   <file>
